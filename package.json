@@ -1,0 +1,64 @@
+{
+  "name": "colorcircle",
+  "version": "0.1.0",
+  "author": {
+    "name": "Gavin Kuo"
+  },
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "main": "src/components/colorcircle.vue",
+  "dependencies": {
+    "vue": "^2.5.16"
+  },
+  "keywords": [
+    "color",
+    "circle",
+    "vue",
+    "html"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/think2cat/Vue_ColorCircle.git"
+  },
+  "bugs": {
+    "url": "https://github.com/think2cat/Vue_ColorCircle/issues"
+  },
+  "files": [
+    "src"
+  ],
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.0-beta.15",
+    "@vue/cli-plugin-eslint": "^3.0.0-beta.15",
+    "@vue/cli-service": "^3.0.0-beta.15",
+    "less": "^3.0.4",
+    "less-loader": "^4.1.0",
+    "vue-template-compiler": "^2.5.16"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
