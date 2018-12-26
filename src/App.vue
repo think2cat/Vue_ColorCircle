@@ -12,8 +12,7 @@ export default {
   name: 'app',
   data() {
     return {
-      tips: '',
-      myId: ''
+      tips: ''
     }
   },
   components: {
