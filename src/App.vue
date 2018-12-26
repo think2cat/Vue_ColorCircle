@@ -22,7 +22,8 @@ export default {
   methods:{
     handelChange(str){
       this.tips = str
-      console.log(str);
+      this.$el.querySelector('.tips').style.backgroundColor = str
+      console.log(str)
     }
   }
 }

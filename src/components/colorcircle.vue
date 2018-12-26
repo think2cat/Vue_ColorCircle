@@ -6,14 +6,14 @@
     </div>
     <ul>
       <li>
-        <img src="./images/symbols-panel_saturation_bright.png" alt="">
+        <img src="./images/saturation1.png" alt="">
         <input type="range" min="0" max="100" v-model="sat" />
-        <img src="./images/symbols-panel_saturation_original-color.png" alt="">
+        <img src="./images/saturation2.png" alt="">
       </li>
       <li>
-        <img src="./images/symbols-panel_brightness_dark.png" alt="">
+        <img src="./images/bright1.png" alt="">
         <input type="range" min="0" max="100" v-model="lum" />
-        <img src="./images/symbols-panel_brightness_bright.png" alt="">
+        <img src="./images/bright2.png" alt="">
       </li>
     </ul>
   </div>
@@ -410,13 +410,16 @@ export default {
 
 ul {
   width: 100%;
+  padding: 10px 0;
   & > li {
     margin-top: 8px;
     overflow: hidden;
     & > img {
       float: left;
+	    width: 14px;
     }
     & > input[type='range'] {
+      width: 78%;
       float: left;
     }
   }
