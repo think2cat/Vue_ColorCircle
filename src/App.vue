@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div><Colorcircle @change="handelChange"/></div>
+    <div style="text-align:-webkit-center"><Colorcircle @change="handelChange"/></div>
     <div class="tips" v-text="tips"></div>
   </div>
 </template>
@@ -10,7 +10,7 @@ import Colorcircle from './components/colorcircle'
 
 export default {
   name: 'app',
-  data(){
+  data() {
     return {
       tips: '',
       myId: ''
@@ -19,11 +19,11 @@ export default {
   components: {
     Colorcircle
   },
-  methods:{
-    handelChange(str){
+  methods: {
+    handelChange(str) {
+      // console.log(str)
       this.tips = str
       this.$el.querySelector('.tips').style.backgroundColor = str
-      console.log(str)
     }
   }
 }

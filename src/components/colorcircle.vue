@@ -26,14 +26,12 @@ export default {
       e: undefined,
       whell: undefined,
       marker: undefined,
-      radius: 60,
-      square: 60,
-      width: 130,
+      radius: 47,
+      width: 105,
       color: undefined,
       hsl: [],
-      rgb: undefined,
       dragging: false,
-      sat: 100,
+      sat: 50,
       lum: 50
     }
   },
@@ -47,75 +45,8 @@ export default {
     this.wheel.style.width = this.width + 'px'
     this.wheel.style.height = this.width + 'px'
 
-    // $._farbtastic = (container, callback) => {
-      // Store farbtastic object
-      // let fb = this
-
-      // let e = $('.farbtastic', container)
-      // fb.wheel = $('.wheel', container).get(0)
-      // Dimensions
-      // fb.radius = 60
-      // fb.square = 60
-      // fb.width = 120
-
-      /**
-       * Link to the given element(s) or callback.
-       */
-      // fb.linkTo = callback => {
-      //   // Unbind previous nodes
-      //   if (typeof fb.callback == 'object') {
-      //     $(fb.callback).unbind('keyup', fb.updateValue)
-      //   }
-
-      //   // Reset color
-      //   fb.color = null
-
-      //   // Bind callback or elements
-      //   if (typeof callback == 'function') {
-      //     fb.callback = callback
-      //   } else if (typeof callback == 'object' || typeof callback == 'string') {
-      //     fb.callback = $(callback)
-      //     fb.callback.bind('keyup', fb.updateValue)
-      //     if (fb.callback.get(0).value) {
-      //       fb.setColor(fb.callback.get(0).value)
-      //     }
-      //   }
-      //   return this
-      // }
-      // fb.updateValue = event => {
-      //   if (this.value && this.value != fb.color) {
-      //     fb.setColor(this.value)
-      //   }
-      // }
-
-
-
-
-
-      // Install mousedown handler (the others are set on the document on-demand)
-      // $('*', e).mousedown(fb.mousedown)
-
-      // Init color
-    //   fb.setColor('#fff')
-
-    //   // Set linked elements/callback
-    //   if (callback) {
-    //     fb.linkTo(callback)
-    //   }
-    // }
-
-    // $.fn.farbtastic = function(callback) {
-    //   $.farbtastic(this, callback)
-    //   return this
-    // }
-    // $.farbtastic = function(container, callback) {
-    //   var container = $(container).get(0);
-    //   return container.farbtastic || (container.farbtastic = new $._farbtastic(container, callback));
-    // }
-    // $(this.$el).farbtastic()
     this.e.addEventListener('mousedown', this.mousedown)
     this.setColor('#126930')
-    // $('*', e).mousedown(fb.mousedown)
   },
   watch: {
     sat() {
@@ -210,54 +141,12 @@ export default {
         // let el = event.target || event.srcElement
         let reference = this.wheel
 
-        // if (false && typeof event.offsetX != 'undefined') {
-        //   // Use offset coordinates and find common offsetParent
-        //   let pos = { x: event.offsetX, y: event.offsetY }
+        let pos = this.absolutePosition(reference)
+        x =
+          (event.pageX || 0 * (event.clientX + document.body.scrollLeft)) - pos.x
+        y =
+          (event.pageY || 0 * (event.clientY + document.body.scrollTop)) - pos.y
 
-        //   // Send the coordinates upwards through the offsetParent chain.
-        //   this.e = el
-        //   while (this.e) {
-        //     console.log('this.e1', this.e)
-        //     this.e.mouseX = pos.x
-        //     this.e.mouseY = pos.y
-        //     pos.x += this.e.offsetLeft
-        //     pos.y += this.e.offsetTop
-        //     this.e = this.e.offsetParent
-        //   }
-
-        //   // Look for the coordinates starting from the wheel widget.
-        //   this.e = reference
-        //   let offset = { x: 0, y: 0 }
-        //   while (this.e) {
-        //     console.log('this.e2', this.e)
-        //     if (typeof this.e.mouseX != 'undefined') {
-        //       x = this.e.mouseX - offset.x
-        //       y = this.e.mouseY - offset.y
-        //       break
-        //     }
-        //     offset.x += this.e.offsetLeft
-        //     offset.y += this.e.offsetTop
-        //     this.e = this.e.offsetParent
-        //   }
-
-        //   // Reset stored coordinates
-        //   this.e = el
-        //   while (this.e) {
-        //     console.log('this.e3', this.e)
-        //     this.e.mouseX = undefined
-        //     this.e.mouseY = undefined
-        //     this.e = this.e.offsetParent
-        //   }
-        // } else {
-          // Use absolute coordinates
-          let pos = this.absolutePosition(reference)
-          x =
-            (event.pageX || 0 * (event.clientX + document.body.scrollLeft)) - pos.x
-          y =
-            (event.pageY || 0 * (event.clientY + document.body.scrollTop)) - pos.y
-        // }
-        // Subtract distance to middle
-        // console.log('widgetCoords.return', { x: x - this.width / 2, y: y - this.width / 2 })
         return { x: x - this.width / 2, y: y - this.width / 2 }
       },
       /**
@@ -268,6 +157,7 @@ export default {
         let angle = this.hsl[0] * 6.28
         this.marker.style.left = Math.round(Math.sin(angle) * this.radius + this.width / 2) + 'px'
         this.marker.style.top = Math.round(-Math.cos(angle) * this.radius + this.width / 2) + 'px'
+        this.$el.querySelectorAll('input')[0].style.background = 'linear-gradient(to right, #000, ' + this.pack(this.HSLToRGB([this.hsl[0], 1, 0.5])) + ' 100%, white)'
 
         this.$emit('change', this.color)
       },
@@ -403,10 +293,6 @@ export default {
     z-index: 1000;
   }
 }
-// .farbtastic* {
-  // position: absolute;
-  // cursor: crosshair;
-// }
 
 ul {
   width: 100%;
@@ -414,13 +300,29 @@ ul {
   & > li {
     margin-top: 8px;
     overflow: hidden;
-    & > img {
+    > img {
       float: left;
-	    width: 14px;
+      width: 14px;
     }
-    & > input[type='range'] {
-      width: 78%;
+    > input[type='range'] {
       float: left;
+      -webkit-appearance: none;
+      width: 105px;
+      margin-top: 6px;
+      background: linear-gradient(to right, #000, white 100%, white);
+      height: 2px;
+      border: 1px solid #E8EAEB;
+      border-radius: 10px;
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 10px;
+        width: 10px;
+        margin-top: 0;
+        border-radius: 50%;
+        background-color: #FFF;
+        border: solid 1px #F3F3F3;
+        box-shadow: 0 0 4px rgb(104, 104, 104);
+      }
     }
   }
 }
